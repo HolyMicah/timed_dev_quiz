@@ -10,24 +10,28 @@
     <link rel="stylesheet" href="assets/style.css">
 </head>
 
+
+<header>
+    
+    <div class="row">
+            
+        <div class="column">
+            <a href="#" id="highScoreList">View High Scores</a>
+        </div>
+
+        <div id="clock" class="col text-right">
+            <i class="far fa-clock"></i> Time: <span id="timerCount">0</span>
+        </div>
+
+
+    </div>
+
+</header>
+
+
 <body>
     
     <div class="container-fluid">
-
-
-        <div class="row">
-            
-            <div class="column">
-                <a href="#" id="highScoreList">View High Scores</a>
-            </div>
-
-            <div id="clock" class="col text-right">
-                <i class="far fa-clock"></i> Time: <span id="timerCount">0</span>
-            </div>
-
-            <div id="countZero" class="col text-right">Time is up!</div>
-
-        </div>
 
         <main>
             <div>
@@ -41,7 +45,7 @@
                         </h1>
 
                         <p id="instructions">
-                            You will be given questions about JavaScript and will be given a time limit in oreder to answer them in. Every incorrect answer will subtract 10 seconds from your score and time by 10 seconds, so be careful!
+                            You will be given questions about JavaScript and will be given a time limit in order to answer them in. Every incorrect answer will subtract 10 seconds from your score and time by 10, so be careful!
                         </p>
 
                         <button class="button" id="start_quiz">Start Quiz</button>
@@ -105,6 +109,11 @@
             </div>
         </main>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+    <script src="./assets/script.js"></script>
+
 </body>
 </html>           
 
