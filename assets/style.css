@@ -6,10 +6,6 @@ header{
     
 }
 
-*link{
-    position: top;
-}
-
 body {
     display: flex;
     flex-direction: column;
