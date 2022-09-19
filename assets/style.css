@@ -45,9 +45,7 @@ li {
     margin-bottom: 10px;
 }
 
-.questions, .scoreResults, .highscores {
-    display:none;
-}
+
 
 .button{
     background-color:black;
