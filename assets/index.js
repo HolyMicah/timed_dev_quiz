@@ -21,46 +21,46 @@ var clear = document.querySelector("#clear")
 var scoreHistory = document.querySelector("#scoreHistory")
 
 var qI = 0
-var score = 0
+var tally = 0
 
 var questionsArr = [
     {
       questionText: "Commonly used data types DO NOT include:",
-      options: ["1. strings", "2. booleans", "3. alerts", "4. numbers"],
-      answer: "3. alerts",
+      options: ["strings", "booleans", "alerts", "numbers"],
+      answer: "alerts",
     },
     {
       questionText: "Arrays in JavaScript can be used to store ______.",
       options: [
-        "1. numbers and strings",
-        "2. other arrays",
-        "3. booleans",
-        "4. all of the above",
+        "numbers and strings",
+        "other arrays",
+        "booleans",
+        "all of the above",
       ],
-      answer: "4. all of the above",
+      answer: "all of the above",
     },
     {
       questionText:
         "String values must be enclosed within _____ when being assigned to variables.",
-      options: ["1. commas", "2. curly brackets", "3. quotes", "4. parentheses"],
-      answer: "3. quotes",
+      options: ["commas", "curly brackets", "quotes", "parentheses"],
+      answer: "quotes",
     },
     {
       questionText:
         "A very useful tool used during development and debugging for printing content to the debugger is:",
       options: [
-        "1. JavaScript",
-        "2. terminal/bash",
-        "3. for loops",
-        "4. console.log",
+        "JavaScript",
+        "terminal/bash",
+        "for loops",
+        "console.log",
       ],
-      answer: "4. console.log",
+      answer: "console.log",
     },
     {
       questionText:
         "Which of the following is a statement that can be used to terminate a loop, switch or label statement?",
-      options: ["1. break", "2. stop", "3. halt", "4. exit"],
-      answer: "1. break",
+      options: ["break", "stop", "halt", "exit"],
+      answer: "break",
     },
   ];
 
@@ -106,11 +106,21 @@ function startQuiz(){
 
 function nextQuestion() {
   askQuestion.textContent = questionsArr[questionNumber].questionText;
+
   ans1.textContent = questionsArr[questionNumber].options[0];
   ans2.textContent = questionsArr[questionNumber].options[1];
   ans3.textContent = questionsArr[questionNumber].options[2];
   ans4.textContent = questionsArr[questionNumber].options[3];
- 
+  
+  ans1.value = questionsArr[questionNumber].options[0];
+  ans2.value = questionsArr[questionNumber].options[1];
+  ans3.value = questionsArr[questionNumber].options[2];
+  ans4.value = questionsArr[questionNumber].options[3];
+
+  // questionsArr[questionNumber].choices.forEach(function(options, i) {
+  //   ansButtons.setAttribute("class", "option");
+  //   ansButtons.setAttribute("value", options);
+  // });
 }
 
 
@@ -118,10 +128,13 @@ function nextQuestion() {
 function checkAnswer(event){
   event.preventDefault();
   
-  if(event.target.value == questionsArr[questionNumber].answer){
+  
+
+  if(this.value == questionsArr[questionNumber].answer){
     grade.textContent = "Correct!";
-    score = score + 1;
+    tally = tally + 1;
   } else{
+    tally = tally - 1;
     time = time - 10
     grade.textContent = "Incorrect. The correct answer is " + questionsArr[questionNumber].answer + " .";
   }
@@ -130,7 +143,12 @@ function checkAnswer(event){
     nextQuestion(questionNumber++);
   }else{
     endQuiz();
+    console.log(score)
   }
+}
+
+function tallyScore(){
+  score.textContent = "Your final score is " + tally + "/5"
 }
 
 
@@ -152,9 +170,10 @@ function checkAnswer(event){
 
 
 function endQuiz(){
-    
+    questionsPage.setAttribute("hidden", true)
     resultsPage.removeAttribute("hidden");
     clearInterval(intervalID); 
+    tallyScore()
 }
 
 
