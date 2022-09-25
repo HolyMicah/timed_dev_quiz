@@ -2,8 +2,13 @@ var introPage = document.querySelector("#introSection")
 var highScoreLine = document.querySelector("#highScoresList")
 
 var questionsPage = document.querySelector("#questionQuestions")
-var question = document.querySelector("#questionId")
+var askQuestion = document.querySelector("#questionId")
 var grade = document.querySelector("#checkAnswer")
+var ansButtons = document.querySelectorAll(".choice")
+var ans1 = document.querySelector("#btn1")
+var ans2 = document.querySelector("#btn2")
+var ans3 = document.querySelector("#btn3")
+var ans4 = document.querySelector("#btn4")
 
 var resultsPage = document.querySelector("#quizResults")
 var score = document.querySelector("#finalScore")
@@ -17,6 +22,7 @@ var scoreHistory = document.querySelector("#scoreHistory")
 
 var qI = 0
 var score = 0
+
 var questionsArr = [
     {
       questionText: "Commonly used data types DO NOT include:",
@@ -61,13 +67,13 @@ var questionsArr = [
 var intervalID;
 var time;
 var currentQuestion;
+var questionNumber = 0
   
-function hidePages() {
-    introPage.setAttribute("hidden", true);
+window.onload = function hidePages() {
     questionsPage.setAttribute("hidden", true);
     resultsPage.setAttribute("hidden", true);
     highScoresList.setAttribute("hidden", true);
-  }
+}
 
 
 
@@ -79,28 +85,79 @@ function countdown(){
     if (time < 1) {
       endQuiz();
     }
-  }
-
+}
 
 function displayTime() {
     let timeDisplay = document.querySelector("#timerCount");
     timeDisplay.textContent = time;
 }
 
- 
-
-document.querySelector("#start_quiz").addEventListener("click", startQuiz); 
+ document.querySelector("#start_quiz").addEventListener("click", startQuiz); 
 
 function startQuiz(){
-    hidePages();
+    introPage.setAttribute("hidden", true)
     questionsPage.removeAttribute("hidden");
     intervalID = setInterval(countdown, 1000);
+    time = 60;
     displayTime();
-    time = 60
+    nextQuestion(questionNumber);
 };
 
+
+function nextQuestion() {
+  askQuestion.textContent = questionsArr[questionNumber].questionText;
+  ans1.textContent = questionsArr[questionNumber].options[0];
+  ans2.textContent = questionsArr[questionNumber].options[1];
+  ans3.textContent = questionsArr[questionNumber].options[2];
+  ans4.textContent = questionsArr[questionNumber].options[3];
+ 
+}
+
+
+
+function checkAnswer(event){
+  event.preventDefault();
+  
+  if(event.target.value == questionsArr[questionNumber].answer){
+    grade.textContent = "Correct!";
+    score = score + 1;
+  } else{
+    time = time - 10
+    grade.textContent = "Incorrect. The correct answer is " + questionsArr[questionNumber].answer + " .";
+  }
+
+  if(questionNumber < questionsArr.length -1){
+    nextQuestion(questionNumber++);
+  }else{
+    endQuiz();
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function endQuiz(){
-    hidePages();
+    
     resultsPage.removeAttribute("hidden");
     clearInterval(intervalID); 
 }
+
+
+ansButtons.forEach(function(click){
+  click.addEventListener("click", checkAnswer);
+});
